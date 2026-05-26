@@ -1,39 +1,36 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <algorithm>
 
 using namespace std;
 
-void findPaths(int r, int c, int n, vector<vector<int>>& maze, 
-               vector<vector<bool>>& visited, string path, vector<string>& results) {
+// Direction arrays in lexicographical order: Down (D), Left (L), Right (R), Up (U)
+int dx[] = {1, 0, 0, -1};
+int dy[] = {0, -1, 1, 0};
+char dir[] = {'D', 'L', 'R', 'U'};
+
+void findPaths(int x, int y, int n, vector<vector<int>>& maze, vector<vector<bool>>& visited, string path, vector<string>& result) {
     // Base Case: Reached the destination
-    if (r == n - 1 && c == n - 1) {
-        results.push_back(path);
+    if (x == n - 1 && y == n - 1) {
+        result.push_back(path);
         return;
     }
 
-    // Mark current cell as visited
-    visited[r][c] = true;
-
-    // Direction arrays for Down, Left, Right, Up (Lexicographical order)
-    int dr[] = {1, 0, 0, -1};
-    int dc[] = {0, -1, 1, 0};
-    char move[] = {'D', 'L', 'R', 'U'};
+    visited[x][y] = true;
 
     for (int i = 0; i < 4; i++) {
-        int nextR = r + dr[i];
-        int nextC = c + dc[i];
+        int nextX = x + dx[i];
+        int nextY = y + dy[i];
 
-        // Check if next move is within bounds, not blocked, and not visited
-        if (nextR >= 0 && nextR < n && nextC >= 0 && nextC < n && 
-            maze[nextR][nextC] == 1 && !visited[nextR][nextC]) {
-            findPaths(nextR, nextC, n, maze, visited, path + move[i], results);
+        // Check if the next move is valid: within bounds, not blocked, and not visited
+        if (nextX >= 0 && nextX < n && nextY >= 0 && nextY < n && 
+            maze[nextX][nextY] == 1 && !visited[nextX][nextY]) {
+            findPaths(nextX, nextY, n, maze, visited, path + dir[i], result);
         }
     }
 
-    // Backtrack: Unmark current cell
-    visited[r][c] = false;
+    // Backtrack: mark cell as unvisited for other potential paths
+    visited[x][y] = false;
 }
 
 int main() {
@@ -47,21 +44,21 @@ int main() {
         }
     }
 
-    vector<string> results;
+    vector<string> result;
     vector<vector<bool>> visited(n, vector<bool>(n, false));
 
     // Start only if the entry and exit points are not blocked
-    if (maze[0][0] == 1 && maze[n - 1][n - 1] == 1) {
-        findPaths(0, 0, n, maze, visited, "", results);
+    if (maze[0][0] == 1 && maze[n-1][n-1] == 1) {
+        findPaths(0, 0, n, maze, visited, "", result);
     }
 
-    if (results.empty()) {
+    if (result.empty()) {
         cout << 0 << endl;
     } else {
-        for (const string& s : results) {
-            cout << s << " ";
+        cout << result.size() << endl;
+        for (const string& path : result) {
+            cout << path << endl;
         }
-        cout << endl;
     }
 
     return 0;
