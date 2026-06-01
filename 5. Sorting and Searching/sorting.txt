@@ -1,0 +1,36 @@
+Sorting = Arranging data in some specific order(Asc, Desc...)
+in sorting - data becomes more organised
+           -data analysis becomes easier
+           -Searching Also become fast
+           - for sorting array we use binary Searching
+           - Gmail app 
+           -approach is :- 1 = A :[a1, a2, a3 ,a4]
+                               B :[b1, b2, b3, b4, b5]
+                               C :[a1, a2, a3, a4, b1, b2, b3, b4, b5]
+                               sort(c)                      sort(C.begin(), C.end())
+                                                             Arrays.sort(C);
+                                                             sort(C)
+    TC: o(N log N)
+    c= []
+    for x in A: C.push_back(x) o(N)
+    for x in B:C.push_back(x)  o(M)
+    sort(c)                    o(N+M)*(log(N+M))
+    print(c)
+
+    **mergeTwoSortedArrays(A, B):
+           N = A.size()
+           M = B.size()
+
+           c = []
+           i = 0                                                 TC: o(N+M)
+                                                                 A = [1, 1,]
+           j = 0
+           while i< N and j < M;
+              if A[i] <= B[j]:
+              c.push_back(A[i])
+              i++
+              else:
+                 c.push_back(B[j])
+                 j++
+
+                 same for i----------
