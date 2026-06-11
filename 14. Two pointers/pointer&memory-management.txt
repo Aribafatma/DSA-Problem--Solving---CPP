@@ -1,0 +1,26 @@
+introduction
+at every recursive call at main function
+space complexity increase at vector 
+f(string, vector) = pass them by reference otherwise give run time error
+once a refference variable is created and assigned an existing---- memory location
+in future it is not possible to assign to some other memory location
+#reference variable
+c1= int a = 10;
+int &b = a;
+c2= address of operator 
+int a= 10;
+cout << &a << endl;
+c3 = bitwise and 
+int a = 10;
+int b= 20;
+cout << a&b <<endl;         
+int -> 4bytes
+char -> 1byte
+long long -> 8byte
+main(){
+    int a = 10;
+    char b= 'x',
+    long long c= 15267891378911;
+    cout << a << endl;
+    cout << b << endl;
+}
